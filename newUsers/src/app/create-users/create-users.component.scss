@@ -1,0 +1,14 @@
+.main-content{
+    float: left;
+    width: 80%;
+    background-color: #f1f3f8;
+    padding: 15px 20px;
+    -webkit-box-shadow: inset -2px 12px 12px -17px rgba(128,128,128,1);
+    -moz-box-shadow: inset -2px 12px 12px -17px rgba(128,128,128,1);
+    box-shadow: inset -2px 12px 12px -17px rgba(128,128,128,1);
+    .bd-headings{
+        color:#666666;
+        font-size:28px;
+        border-bottom: 1px solid #d1d1d1
+    }
+}

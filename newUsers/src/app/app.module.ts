@@ -7,16 +7,22 @@ import { CreateUsersComponent } from './create-users/create-users.component';
 import {FormsModule} from "@angular/forms";
 import { from } from 'rxjs';
 import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
+import{HttpClientModule} from '@angular/common/http';
+import { HeaderComponent } from './header/header.component';
+import { LeftNavigationComponent } from './left-navigation/left-navigation.component';
 @NgModule({
   declarations: [
     AppComponent,
-    CreateUsersComponent
+    CreateUsersComponent,
+    HeaderComponent,
+    LeftNavigationComponent
     ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    InternationalPhoneNumberModule
+    InternationalPhoneNumberModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
