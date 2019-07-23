@@ -1,0 +1,112 @@
+<form #userForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Create Users</h3>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="form-group" [class.has-error]="title.invalid && title.touched">
+        <label class="col-md-2 col-sm-2 control-label" for="title">Title</label>
+          <div class="col-md-10 col-sm-10">
+              <select id="title" name="title" class="form-control" required #title=ngModel [(ngModel)]="userModel.title">
+                  <option value="" selected>Select Titles</option>
+                  <option *ngFor="let t of titles">{{ t }}</option>
+              </select>
+              <div *ngIf="title.invalid && title.touched">
+                  <small class="error" *ngIf="title.errors.required">Please choose a title</small>
+             </div>
+          </div>
+       </div> 
+    
+       <div class="form-group" [class.has-error]="firstname.invalid && (firstname.dirty || firstname.touched)">
+          <label class="col-md-2 col-sm-2 control-label" for="firstname">First Name</label>
+          <div class="col-md-10 col-sm-10">
+          <input type="text" id="firstname" name="firstname" class="form-control"  #firstname="ngModel" pattern="[a-zA-Z ]*" required [(ngModel)]="userModel.firstname">
+            <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)">
+                 <small class="error" *ngIf="firstname.errors.required">Firstname is required</small>
+                 <small class="error" *ngIf="firstname.errors.pattern">Firstname must be a string</small>
+            </div>
+           </div>
+       </div>
+       <div class="form-group" [class.has-error]="surname.invalid && (surname.dirty || surname.touched)">
+          <label class="col-md-2 col-sm-2 control-label" for="surname">Surname</label>
+          <div class="col-md-10 col-sm-10">
+          <input type="text" id="surname" name="surname" class="form-control" required #surname="ngModel" pattern="[a-zA-Z ]*" [(ngModel)]="userModel.surname">
+          <div *ngIf="surname.invalid && (surname.dirty || surname.touched)">
+              <small class="error" *ngIf="surname.errors.required">surname is required</small>
+              <small class="error" *ngIf="surname.errors.pattern">Surname must be a string</small>
+         </div>        
+        </div>
+       </div>
+       <div class="form-group" [class.has-error]="emailAddress.invalid && (emailAddress.dirty || emailAddress.touched)">
+          <label class="col-md-2 col-sm-2 control-label" for="emailAddress">Email</label>
+          <div class="col-md-10 col-sm-10">
+          <input type="text" id="emailAddress" name="emailAddress" class="form-control" #emailAddress="ngModel" [(ngModel)]="userModel.emailAddress" email>
+          <div *ngIf="emailAddress.invalid && (emailAddress.dirty || emailAddress.touched)">
+              <small class="error" *ngIf="emailAddress.errors.email">Email must be a valid email address</small>
+         </div>    
+        </div>
+       </div>
+        <!-- <div class="form-group" >
+          <label class="col-md-2 col-sm-2 control-label" for="phoneno">Phone Number</label>
+          <div class="col-md-10 col-sm-10">
+          <international-phone-number [(ngModel)]="userModel.phoneno" placeholder="Enter phone number" [maxlength]="15" [minlength]="15" [defaultCountry]="'de'" [required]="false" #phoneno="ngModel" name="phoneno" [allowedCountries]="['de']"></international-phone-number>
+          <div *ngIf="userForm.submitted && !phoneno.valid" class="error">Should be a valid Phone Number</div>
+        </div>
+       </div> -->
+
+       <div class="form-group" [class.has-error]="birthdate.invalid && (birthdate.dirty || birthdate.touched)">
+          <label class="col-md-2 col-sm-2 control-label" for="birthdate">Birth Date</label>
+          <div class="col-md-10 col-sm-10">
+          <input type="text" id="birthdate" name="birthdate" class="form-control" required #birthdate="ngModel" pattern="^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$" [(ngModel)]="userModel.birthdate">
+            <div *ngIf="birthdate.invalid && (birthdate.dirty || birthdate.touched)">
+                  <small class="error" *ngIf="birthdate.errors.required">Birthdate is required</small>
+                  <small class="error" *ngIf="birthdate.errors.pattern">Birthdate must be in correct format</small>
+            </div>            
+          </div>
+       </div>
+
+       <div class="form-group" [class.has-error]="houseno.invalid && (houseno.dirty || houseno.touched)">
+          <label class="col-md-2 col-sm-2 control-label" for="houseno">House Number</label>
+          <div class="col-md-10 col-sm-10">
+          <input type="text" id="houseno" name="houseno" class="form-control" required #houseno="ngModel" [(ngModel)]="userModel.houseno">
+          <div *ngIf="houseno.invalid && (houseno.dirty || houseno.touched)">
+              <small class="error" *ngIf="houseno.errors.required">House Number is required</small>
+         </div>
+          </div>
+       </div>
+       <div class="form-group" [class.has-error]="street.invalid && (street.dirty || street.touched)">
+          <label class="col-md-2 col-sm-2 control-label" for="street">Street</label>
+          <div class="col-md-10 col-sm-10">
+          <input type="text" id="street" name="street" class="form-control" required #street="ngModel" [(ngModel)]="userModel.street">
+          <div *ngIf="street.invalid && (street.dirty || street.touched)">
+              <small class="error" *ngIf="street.errors.required">Street is required</small>
+         </div>
+          </div>
+       </div>
+       <div class="form-group" [class.has-error]="city.invalid && (city.dirty || city.touched)">
+          <label class="col-md-2 col-sm-2 control-label" for="city">City</label>
+          <div class="col-md-10 col-sm-10">
+          <input type="text" id="city" name="city" class="form-control" required #city="ngModel" [(ngModel)]="userModel.city">
+          <div *ngIf="city.invalid && (city.dirty || city.touched)">
+              <small class="error" *ngIf="city.errors.required">City is required</small>
+         </div>
+          </div>
+       </div>
+       <div class="form-group" [class.has-error]="postcode.invalid && (postcode.dirty || postcode.touched)">
+          <label class="col-md-2 col-sm-2 control-label" for="postcode">PLZ</label>
+          <div class="col-md-10 col-sm-10">
+              <input type="number" id="postcode" name="postcode" class="form-control"  #postcode="ngModel" pattern="^[0-9]{1,5}$" required [(ngModel)]="userModel.postcode">
+              <div *ngIf="postcode.invalid && (postcode.dirty || postcode.touched)">
+                  <small class="error" *ngIf="postcode.errors.required">PLZ is required</small>
+                  <small class="error" *ngIf="postcode.errors.pattern">PLZ must be a positive value and upto 5 digits</small>
+             </div>
+            </div>
+       </div> 
+  </div>
+  <div class="panel-footer">
+      <button type="submit" class="btn btn-primary" [disabled]="userForm.form.invalid">
+          Create
+        </button>
+    </div>
+</form>
