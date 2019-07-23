@@ -9,6 +9,24 @@
     .bd-headings{
         color:#666666;
         font-size:28px;
-        border-bottom: 1px solid #d1d1d1
-    }
+        border-bottom: 1px solid #d1d1d1 
+   }
+    .astrick{
+        color: #d10018;
+        font-weight: bold;
+   }
+    .submittedalert{
+        color:#90dc27 
+   }
+}
+.box{
+    width:300px;
+}
+.dd-error{
+    border: 1px solid red;
+    border-radius: 24px;
+}
+.border-top{
+    border-top: 1px solid #d1d1d1;
+    padding-top: 10px;
 }

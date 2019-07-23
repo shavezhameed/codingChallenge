@@ -1,116 +1,131 @@
-
 <div class="main-content">
-<div class="bd-headings">Neuer Benutzer</div>
-<div *ngIf="submitted"><h4>Der Benutzer wurde erfolgreich erstellt.</h4></div>
-<form #userForm="ngForm" *ngIf="!submitted" (ngSubmit)="onSubmit()" novalidate>
-  <div class="panel-body">
-    <div class="form-group" [class.has-error]="title.invalid && title.touched">
-        <label class="col-md-3 col-sm-3 control-label" for="title">Title</label>
+    <div class="bd-headings">Neuer Benutzer</div>
+    <div *ngIf="submitted" class="submittedalert">
+       <h5>Der Benutzer wurde erfolgreich erstellt.</h5>
+    </div>
+    <div class="error" *ngIf="errorMsg">evwevwe{{errorMsg}}</div>
+    <form #userForm="ngForm" *ngIf="!submitted" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
+    <div class="panel-body">
+       <div class="form-group" [class.has-error]="title.invalid && title.touched">
+          <label class="col-md-2 col-sm-2 control-label" for="title"><span class="astrick">*</span>Title</label>
           <div class="col-md-9 col-sm-9 row">
-              <div class="custom-select" style="width:200px;">
-              <select id="title" name="title" class="form-control" required #title=ngModel [(ngModel)]="userModel.title">
-                  <option *ngFor="let t of titles">{{t}}</option>
-              </select>
-              </div>
-              <div *ngIf="title.invalid && title.touched">
-                  <small class="error" *ngIf="title.errors.required">Bitte wählen Sie einen title.</small>
+             <div class="box">
+                <ng-select [items]="titles"
+                bindLabel="name"
+                placeholder="Select Title"
+                [(ngModel)]="userModel.title"
+                name="title"
+                required #title=ngModel
+                [searchable]="false" 
+                [clearable]="false"
+                class="bd-custom"
+                [class.dd-error]="title.invalid && title.touched">
+                </ng-select>
+                <div *ngIf="title.invalid && title.touched">
+                   <small class="error" *ngIf="title.errors.required">Bitte wählen Sie einen title.</small>
+                </div>
              </div>
           </div>
-       </div> 
-    
+       </div>
        <div class="form-group" [class.has-error]="firstname.invalid && (firstname.dirty || firstname.touched)">
-          <label class="col-md-3 col-sm-3 control-label" for="firstname">Vorname</label>
+          <label class="col-md-2 col-sm-2 control-label" for="firstname"><span class="astrick">*</span>Vorname</label>
           <div class="col-md-9 col-sm-9 row">
-          <input type="text" id="firstname" placeholder="Vorname" name="firstname" class="form-control"  #firstname="ngModel" pattern="[a-zA-Z ]*" required [(ngModel)]="userModel.firstname">
-            <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)">
-                 <small class="error" *ngIf="firstname.errors.required">Vorname ist erforderlich.</small>
-                 <small class="error" *ngIf="firstname.errors.pattern">Vorname muss eine Zeichenfolge sein.</small>
-            </div>
-           </div>
+             <input type="text" id="firstname" placeholder="Vorname" name="firstname" class="form-control"  #firstname="ngModel" pattern="[a-zA-Z ]*" required [(ngModel)]="userModel.firstname" >
+             <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)">
+                <small class="error" *ngIf="firstname.errors.required">Vorname ist erforderlich.</small>
+                <small class="error" *ngIf="firstname.errors.pattern">Vorname muss eine Zeichenfolge sein.</small>
+             </div>
+          </div>
        </div>
        <div class="form-group" [class.has-error]="surname.invalid && (surname.dirty || surname.touched)">
-          <label class="col-md-3 col-sm-3 control-label" for="surname">Nachname</label>
+          <label class="col-md-2 col-sm-2 control-label" for="surname"><span class="astrick">*</span>Nachname</label>
           <div class="col-md-9 col-sm-9 row">
-          <input type="text" id="surname" placeholder="Nachname" name="surname" class="form-control" required #surname="ngModel" pattern="[a-zA-Z ]*" [(ngModel)]="userModel.surname">
-          <div *ngIf="surname.invalid && (surname.dirty || surname.touched)">
-              <small class="error" *ngIf="surname.errors.required">Nachname ist erforderlich.</small>
-              <small class="error" *ngIf="surname.errors.pattern">Nachname muss eine Zeichenfolge sein.</small>
-         </div>        
-        </div>
+             <input type="text" id="surname" placeholder="Nachname" name="surname" class="form-control" required #surname="ngModel" pattern="[a-zA-Z ]*" [(ngModel)]="userModel.surname">
+             <div *ngIf="surname.invalid && (surname.dirty || surname.touched)">
+                <small class="error" *ngIf="surname.errors.required">Nachname ist erforderlich.</small>
+                <small class="error" *ngIf="surname.errors.pattern">Nachname muss eine Zeichenfolge sein.</small>
+             </div>
+          </div>
        </div>
        <div class="form-group" [class.has-error]="emailAddress.invalid && (emailAddress.dirty || emailAddress.touched)">
-          <label class="col-md-3 col-sm-3 control-label" for="emailAddress">Email</label>
+          <label class="col-md-2 col-sm-2 control-label" for="emailAddress">Email</label>
           <div class="col-md-9 col-sm-9 row">
-          <input type="text" id="emailAddress" placeholder="emailaddress@domain.com" name="emailAddress" class="form-control" #emailAddress="ngModel" [(ngModel)]="userModel.emailAddress" email>
-          <div *ngIf="emailAddress.invalid && (emailAddress.dirty || emailAddress.touched)">
-              <small class="error" *ngIf="emailAddress.errors.email">E-Mail muss eine gültige E-Mail-Adresse sein.</small>
-         </div>    
-        </div>
-       </div>
-        <div class="form-group" >
-          <label class="col-md-3 col-sm-3 control-label" for="phoneno">Telefonnummer</label>
-          <div class="col-md-9 col-sm-9 row">
-          <input type="number" id="phoneno" placeholder="Telefonnummer ohne Landesvorwahl" name="phoneno" class="form-control"  #phoneno="ngModel" pattern="^[0-9]{1,11}$" [(ngModel)]="userModel.phoneno">
-          <div *ngIf="phoneno.invalid && (phoneno.dirty || phoneno.touched)">
-           <small class="error" *ngIf="phoneno.errors.pattern">Bitte geben Sie eine gültige Telefonnummer ein.</small> 
+             <input type="text" id="emailAddress" placeholder="emailaddress@domain.com" name="emailAddress" class="form-control" #emailAddress="ngModel" [(ngModel)]="userModel.emailAddress" email>
+             <div *ngIf="emailAddress.invalid && (emailAddress.dirty || emailAddress.touched)">
+                <small class="error" *ngIf="emailAddress.errors.email">E-Mail muss eine gültige E-Mail-Adresse sein.</small>
+             </div>
           </div>
-        </div>
-       </div> 
-
+       </div>
+       <div class="form-group" >
+          <label class="col-md-2 col-sm-2 control-label" for="phoneno">Telefonnummer</label>
+          <div class="col-md-9 col-sm-9 row">
+             <input type="number" id="phoneno" placeholder="Telefonnummer ohne Landesvorwahl" name="phoneno" class="form-control"  #phoneno="ngModel" pattern="^[0][1-9]\d{10}$|^[1-9]\d{10}$" (keypress)="onlyNumberKey($event)" maxlength="11" [(ngModel)]="userModel.phoneno">
+             <div *ngIf="phoneno.invalid && (phoneno.dirty || phoneno.touched)">
+                <small class="error" *ngIf="phoneno.errors.pattern">Bitte geben Sie eine gültige Telefonnummer ein.</small> 
+             </div>
+          </div>
+       </div>
        <div class="form-group" [class.has-error]="birthdate.invalid && (birthdate.dirty || birthdate.touched)">
-          <label class="col-md-3 col-sm-3 control-label" for="birthdate">Geburtstag</label>
+          <label class="col-md-2 col-sm-2 control-label" for="birthdate"><span class="astrick">*</span>Geburtstag</label>
           <div class="col-md-9 col-sm-9 row">
-          <input type="text" id="birthdate" placeholder="mm.dd.yyyy" name="birthdate" class="form-control" required #birthdate="ngModel" pattern="^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$" [(ngModel)]="userModel.birthdate">
-            <div *ngIf="birthdate.invalid && (birthdate.dirty || birthdate.touched)">
-                  <small class="error" *ngIf="birthdate.errors.required">Geburtsdatum ist erforderlich.</small>
-                  <small class="error" *ngIf="birthdate.errors.pattern">Geburtsdatum muss im richtigen Format sein.</small>
-            </div>            
+             <input 
+             id="birthdate"
+             required #birthdate="ngModel"
+             placeholder="mm.dd.yyyy"
+             class="form-control"
+             [bsConfig]="{ dateInputFormat: 'DD.MM.YYYY' }"
+             [maxDate]="maxDate"
+             bsDatepicker
+             name="birthdate"
+             [(ngModel)]="userModel.birthdate">
+             <div *ngIf="birthdate.invalid && (birthdate.dirty || birthdate.touched)">
+                <small class="error" *ngIf="birthdate.errors.required">Geburtsdatum ist erforderlich.</small>
+                <small class="error" *ngIf="birthdate.errors.pattern">Geburtsdatum muss im richtigen Format sein.</small>
+             </div>
           </div>
        </div>
-
        <div class="form-group" [class.has-error]="houseno.invalid && (houseno.dirty || houseno.touched)">
-          <label class="col-md-3 col-sm-3 control-label" for="houseno">Hausnummer</label>
+          <label class="col-md-2 col-sm-2 control-label" for="houseno"><span class="astrick">*</span>Hausnummer</label>
           <div class="col-md-9 col-sm-9 row">
-          <input type="text" id="houseno" placeholder="Hausnummer" name="houseno" class="form-control" required #houseno="ngModel" [(ngModel)]="userModel.houseno">
-          <div *ngIf="houseno.invalid && (houseno.dirty || houseno.touched)">
-              <small class="error" *ngIf="houseno.errors.required">Hausnummer ist erforderlich.</small>
-         </div>
+             <input type="text" id="houseno" placeholder="Hausnummer" name="houseno" class="form-control" required #houseno="ngModel" [(ngModel)]="userModel.houseno">
+             <div *ngIf="houseno.invalid && (houseno.dirty || houseno.touched)">
+                <small class="error" *ngIf="houseno.errors.required">Hausnummer ist erforderlich.</small>
+             </div>
           </div>
        </div>
        <div class="form-group" [class.has-error]="street.invalid && (street.dirty || street.touched)">
-          <label class="col-md-3 col-sm-3 control-label" for="street">Straße</label>
+          <label class="col-md-2 col-sm-2 control-label" for="street"><span class="astrick">*</span>Straße</label>
           <div class="col-md-9 col-sm-9 row">
-          <input type="text" id="street" placeholder="Straße" name="street" class="form-control" required #street="ngModel" [(ngModel)]="userModel.street">
-          <div *ngIf="street.invalid && (street.dirty || street.touched)">
-              <small class="error" *ngIf="street.errors.required">Straße ist erforderlich.</small>
-         </div>
+             <textarea type="text" id="street" placeholder="Straße" name="street" class="form-control" required #street="ngModel" [(ngModel)]="userModel.street"></textarea>
+             <div *ngIf="street.invalid && (street.dirty || street.touched)">
+                <small class="error" *ngIf="street.errors.required">Straße ist erforderlich.</small>
+             </div>
           </div>
        </div>
        <div class="form-group" [class.has-error]="city.invalid && (city.dirty || city.touched)">
-          <label class="col-md-3 col-sm-3 control-label" for="city">Stadt</label>
+          <label class="col-md-2 col-sm-2 control-label" for="city"><span class="astrick">*</span>Stadt</label>
           <div class="col-md-9 col-sm-9 row">
-          <input type="text" id="city" name="city" placeholder="Stadt" class="form-control" required #city="ngModel" [(ngModel)]="userModel.city">
-          <div *ngIf="city.invalid && (city.dirty || city.touched)">
-              <small class="error" *ngIf="city.errors.required">Stadt ist erforderlich.</small>
-         </div>
+             <input type="text" id="city" name="city" placeholder="Stadt" class="form-control" required #city="ngModel" [(ngModel)]="userModel.city">
+             <div *ngIf="city.invalid && (city.dirty || city.touched)">
+                <small class="error" *ngIf="city.errors.required">Stadt ist erforderlich.</small>
+             </div>
           </div>
        </div>
        <div class="form-group" [class.has-error]="postcode.invalid && (postcode.dirty || postcode.touched)">
-          <label class="col-md-3 col-sm-3 control-label" for="postcode">Postleitzahl</label>
+          <label class="col-md-2 col-sm-2 control-label" for="postcode"><span class="astrick">*</span>Postleitzahl</label>
           <div class="col-md-9 col-sm-9 row">
-              <input type="number" id="postcode" placeholder="Postleitzahl" name="postcode" class="form-control"  #postcode="ngModel" pattern="^[0-9]{1,5}$" required [(ngModel)]="userModel.postcode">
-              <div *ngIf="postcode.invalid && (postcode.dirty || postcode.touched)">
-                  <small class="error" *ngIf="postcode.errors.required">Postleitzahl ist erforderlich.</small>
-                  <small class="error" *ngIf="postcode.errors.pattern">Die Postleitzahl muss ein positiver Wert und bis zu 5 Stellen sein.</small>
+             <input type="number" id="postcode" placeholder="Postleitzahl" name="postcode" (keypress)="onlyNumberKey($event)" maxlength="5" class="form-control"  #postcode="ngModel" pattern="^[0-9]{1,5}$" required [(ngModel)]="userModel.postcode">
+             <div *ngIf="postcode.invalid && (postcode.dirty || postcode.touched)">
+                <small class="error" *ngIf="postcode.errors.required">Postleitzahl ist erforderlich.</small>
+                <small class="error" *ngIf="postcode.errors.pattern">Die Postleitzahl muss ein positiver Wert und bis zu 5 Stellen sein.</small>
              </div>
-            </div>
-       </div> 
-  </div>
-  <div class="">
-      <button type="submit" class="bd-button" [disabled]="userForm.form.invalid">
-          Erstellen
-        </button>
+          </div>
+       </div>
     </div>
-</form>
-
-</div>
+    <div class="border-top">
+       <button type="submit" class="bd-button" [disabled]="userForm.form.invalid">
+       Erstellen
+       </button>
+    </div>
+    </form>
+ </div>
