@@ -63,6 +63,12 @@ body {
 	box-shadow: inset 0px 1px 5px 1px rgba(0, 0, 0, 0.2);
 	max-width: 300px;
 }
+.form-group input.form-control:hover, textarea.form-control:hover{
+    color:#14abff !important;
+}
+.form-group input.form-control:focus, textarea.form-control:focus{
+    color:#000 !important;
+}
 textarea.form-control {
     height: auto;
     border-radius: 16px;

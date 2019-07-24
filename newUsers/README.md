@@ -14,14 +14,18 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## About the code challenge
+
+The Code Challenge was completed using a template driven form in angular 7.
+Each field has its own set of validations.
+Bootstrap framework is used for styling with Css3.
+
+The Data is transferred via a RESTful interface which is mocked in sandbox on the endpoint given below :
+
+https://userdata.getsandbox.com/users
+
+The same can be used to get data and post data from/on the server.
